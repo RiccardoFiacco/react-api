@@ -1,0 +1,22 @@
+.justify_center{
+    justify-content: center;
+}
+
+.align_center{
+    align-items: center;
+}
+
+.padding_top_50{
+    padding-top: 50px;
+}
+
+.flex_grow_1 {
+    flex-grow: 1;
+} 
+.bgcolor_lightGrey{
+    background-color: #E5E5E5;
+}
+
+.row_gap_15{
+    row-gap: 15px;
+}
