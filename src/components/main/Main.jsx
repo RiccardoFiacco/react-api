@@ -41,24 +41,47 @@ export function Main() {
   function onSubmit(event) {
     event.preventDefault();
     //controllo se i campi non sono vuoti
-    if (formData.title === "" && formData.content === "") {
-      console.log("vuoto uno dei due");
+    if (formData.title === "" && formData.content === "" && formData.image === "" && formData.tags === "") {
+      alert("vuoto uno dei due");
       return;
     }
 
     //creo una variabile di appoggio dove andro a mettere i valori che ho preso dal form
     const newPost = {
       ...formData, //uso lo spread operator per mettere i valori di form data dentro al nuovo post
+      slug : formData.title.trim().split(' ').join('-'),
+      tags : formData.tags.split(' ')
     };
+    console.log(newPost)
+    axios
+    .post(uri, newPost) //passiamo come parametro l'oggetto che vogliamo inserire
+    .then((res) => {
+      console.log(res)
+      setPosts([...posts, res.data]);//con set new arr vado a creare un array con i vecchi post piu quello nuovo
+      setFormData(basePost);//riazzero i campi
+      setStatus(false);
+      console.log(posts)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
-    setPosts([...posts, newPost]); //con set new arr vado a creare un array con i vecchi post piu quello nuovo
-    setFormData(basePost); //riazzero i campi
-    setStatus(false);
+
   }
 
   function deletePost(postToDelete) {
     //function per eliminare un post
-    setPosts(posts.filter((post) => post !== postToDelete)); //prendo tutto tranne il post che corrisponde al post che ho passato alla funzione
+    console.log(postToDelete.id)
+    axios
+      .delete(uri+postToDelete.id)
+      .then((res) => {
+        console.log(res.data)
+        setPosts(posts.filter((post) => post.id !== postToDelete.id)); //prendo tutto tranne il post che corrisponde al post che ho passato alla funzione
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    
   }
 
   function axiosPostsCall() {
@@ -100,14 +123,7 @@ export function Main() {
             name="title"
             value={formData.title}
             placeholder="inserisci titolo"
-          ></input>
-          <input
-            onChange={(e) => changeHandler(e)}
-            type="text"
-            className="col-2"
-            name="slug"
-            value={formData.slug}
-            placeholder="inserisci testo"
+            required
           ></input>
           <input
             onChange={(e) => changeHandler(e)}
@@ -116,6 +132,7 @@ export function Main() {
             name="content"
             value={formData.content}
             placeholder="inserisci contenuto"
+            required
           ></input>
           <input
             onChange={(e) => changeHandler(e)}
@@ -124,6 +141,7 @@ export function Main() {
             name="image"
             value={formData.image}
             placeholder="inserisci url imagine"
+            required
           ></input>
           <input
             onChange={(e) => changeHandler(e)}
@@ -132,6 +150,7 @@ export function Main() {
             name="tags"
             value={formData.tags}
             placeholder="inserisci tags"
+            required
           ></input>
           <input
             type="submit"
@@ -144,11 +163,11 @@ export function Main() {
         <div className="row row-gap-5 pt-5">
           {
           posts.length !== 0 ? (
-            posts.map((el) => {
+            posts.map((el, i) => {
               return (
                 <PostCard
-                  key={el.id}
-                  id={el.id}
+                  key={i}
+                  slug = {el.slug}
                   title={el.title}
                   image={el.image}
                   content={el.content}
