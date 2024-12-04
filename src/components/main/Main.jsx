@@ -141,14 +141,7 @@ export function Main() {
             }}
           ></input>
         </form>
-        <div
-          className={[
-            style.justify_center,
-            style.align_center,
-            style.padding_top_50,
-            style.row_gap_15,
-          ]}
-        >
+        <div className="row row-gap-5 pt-5">
           {
           posts.length !== 0 ? (
             posts.map((el) => {

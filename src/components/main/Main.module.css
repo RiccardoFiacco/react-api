@@ -20,3 +20,7 @@
 .row_gap_15{
     row-gap: 15px;
 }
+
+.d_flex{
+    display: flex;
+}
