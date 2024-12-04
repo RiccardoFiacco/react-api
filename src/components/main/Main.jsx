@@ -69,14 +69,14 @@ export function Main() {
 
   }
 
-  function deletePost(postToDelete) {
+  function deletePost(id) {
     //function per eliminare un post
-    console.log(postToDelete.id)
+    console.log(id)
     axios
-      .delete(uri+postToDelete.id)
+      .delete(uri+id)
       .then((res) => {
-        console.log(res.data)
-        setPosts(posts.filter((post) => post.id !== postToDelete.id)); //prendo tutto tranne il post che corrisponde al post che ho passato alla funzione
+        console.log(res)
+        setPosts(posts.filter((post) => post.id !== id)); //prendo tutto tranne il post che corrisponde al post che ho passato alla funzione
       })
       .catch((err) => {
         console.error(err);
@@ -163,16 +163,16 @@ export function Main() {
         <div className="row row-gap-5 pt-5">
           {
           posts.length !== 0 ? (
-            posts.map((el, i) => {
+            posts.map((el) => {
               return (
                 <PostCard
-                  key={i}
+                  key={el.slug}
                   slug = {el.slug}
                   title={el.title}
                   image={el.image}
                   content={el.content}
                   tags={el.tags}
-                  callback={() => deletePost(el)}
+                  callback={() => deletePost(el.id)}
                 />
               );
             })
