@@ -6,7 +6,7 @@ export function PostCard(props) {
   return (
     <div className="col-6">
       <div className="card" id={`${slug}`}>
-        <img src={image ? image : sconsolato} className="card-img-top" alt="..." />
+        <img src={image ? "http://localhost:3000/imgs/posts/"+image : sconsolato} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           
