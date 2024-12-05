@@ -170,6 +170,7 @@ export function Main() {
               return (
                 <PostCard
                   key={el.id}
+                  id={el.id}
                   slug = {el.slug}
                   title={el.title}
                   image={el.image}

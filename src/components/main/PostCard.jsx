@@ -1,12 +1,11 @@
-import sconsolato from "../../assets/sconsolato.jpg"
 
 export function PostCard(props) {
-  const {slug = "" , title = "", image = "", content = "", tags = [], callback} = props;
+  const {id="",slug = "" , title = "", image = "", content = "", tags = [], callback} = props;
 
   return (
     <div className="col-6">
       <div className="card" id={`${slug}`}>
-        <img src={image ? "http://localhost:3000/imgs/posts/"+image : sconsolato} className="card-img-top" alt="..." />
+        <img src={image && id<=5 ? "http://localhost:3000/imgs/posts/"+image : image} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           
