@@ -11,7 +11,7 @@ export function PostCard(props) {
           
           <p>
             {tags.length != 0 ? tags.map((tag, i) => (
-              <span key={i}>&nbsp;<span> {tag} </span>&nbsp;</span>
+              <span key={i}>&nbsp;<span className="text-bg-success"> {tag} </span>&nbsp;</span>
             )) : <span>niente tags</span>}
            
           </p>
