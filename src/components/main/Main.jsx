@@ -70,8 +70,9 @@ export function Main() {
   }
 
   function deletePost(id) {
+    const flag = confirm("sei sicuro?")
     //function per eliminare un post
-    console.log(id)
+    if(flag){
     axios
       .delete(uri+id)
       .then((res) => {
@@ -81,7 +82,9 @@ export function Main() {
       .catch((err) => {
         console.error(err);
       });
-    
+    }else{
+      alert("operazione annullata")
+    }
   }
 
   function axiosPostsCall() {
@@ -166,7 +169,7 @@ export function Main() {
             posts.map((el) => {
               return (
                 <PostCard
-                  key={el.slug}
+                  key={el.id}
                   slug = {el.slug}
                   title={el.title}
                   image={el.image}
